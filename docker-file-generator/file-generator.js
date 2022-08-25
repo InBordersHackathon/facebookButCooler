@@ -36,14 +36,15 @@ const generateDockerCompose = (dockerServices) => {
     content += `${instruction}\n`;
   }
 
-  pushContent(`version: 3.9`);
+  pushContent(`version: "3.9"`);
 
   pushContent(`services:`);
   for (dockerService of dockerServices) {
+    let dockerFileName = `DockerFile-${dockerService['app-name']}`
     tabCount++;
     pushContent(`${dockerService['app-name']}:`);
     tabCount++;
-    pushContent(`build: ${dockerService['app-path']}`);
+    pushContent(`build: ${dockerFileName}`);
     pushContent(`ports:`)
     tabCount++;
     pushContent(`- ${dockerService['expose-port']}:${dockerService['expose-port']}`)
@@ -58,7 +59,10 @@ const generateDockerCompose = (dockerServices) => {
 }
 
 const fileGenerator = (dockerServices) => {
-  
+  const dir = './generatedFiles'; 
+  if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
+  }
   generateDockerFiles(dockerServices);
   generateDockerCompose(dockerServices);
 
