@@ -1,28 +1,29 @@
-const fs = require('fs')
-const mockData = require('./mock-docker-data.json')
-const fileGenerator = (dockerData) => {
-    let data = 
-`FROM ${dockerData['node-version']}
-RUN ${dockerData.instructions}\n`
+const fs = require('fs');
+const mockData = require('./mock-docker-data.json');
 
-for (object of dockerData.repository) {
-    data += `RUN git clone --branch ${object.branch} ${object.url}
-RUN cd ${object['app-path']}
-RUN npm i
-RUN npm ${object['app-start-command']}\n` 
-}
 
-    data += `EXPOSE ${dockerData['expose-port']}`
+const fileGenerator = (dockerServices) => {
   
-    fs.writeFile("Dockerfile", data, (err) => {
-      if (err)
-        console.log(err);
-      else {
-        console.log("File written successfully\n");
-        console.log("The written has the following contents:");
-        // console.log(fs.readFileSync("books.txt", "utf8"));
-      }
+  for (dockerService of dockerServices) {
+    let fileName = `generatedFiles/DockerImage-${dockerService['app-name']}`
+    let content = "";
+    content += `FROM ${dockerService['node-version']}\n\n`;
+
+    dockerService.setup.map(instruction => {
+      content += `RUN ${instruction}\n\n`
+    });
+  
+    content += `RUN git clone --branch ${dockerService.branch} ${dockerService.url}\n\n`;
+    content += `WORKDIR ${dockerService['app-path']}\n\n`;
+    content += `RUN npm i\n\n`;
+
+    content += `EXPOSE ${dockerService['expose-port']}\n\n`;
+    content += `ENTRYPOINT ${JSON.stringify(dockerService['entry-point'])}\n`;
+
+    fs.writeFile(fileName, content, (err) => {
+      if (err) console.log(err);
     })
+  }
 }
 
 fileGenerator(mockData);
