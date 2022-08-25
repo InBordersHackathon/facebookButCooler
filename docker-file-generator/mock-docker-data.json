@@ -1,0 +1,17 @@
+{
+    "node-version": "node:12-alpine",
+    "instructions": "apk add git",
+    "repository": [{
+        "branch": "dev",
+        "url": "https://github.com/InBordersHackathon/facebookButCooler.git",
+        "app-path": "facebookButCooler/mock-ui",
+        "app-start-command": "run dev"
+    }, {
+        "branch": "dev",
+        "url": "https://github.com/InBordersHackathon/facebookButCooler.git",
+        "app-path": "facebookButCooler/mock-ui",
+        "app-start-command": "run dev"
+    }],
+    
+    "expose-port": "5173"
+}
