@@ -44,7 +44,11 @@ const generateDockerCompose = (dockerServices) => {
     tabCount++;
     pushContent(`${dockerService['app-name']}:`);
     tabCount++;
-    pushContent(`build: ${dockerFileName}`);
+    pushContent(`build:`);
+    tabCount++;
+    pushContent(`context: .`)
+    pushContent(`dockerfile: ${dockerFileName}`)
+    tabCount--;
     pushContent(`ports:`)
     tabCount++;
     pushContent(`- ${dockerService['expose-port']}:${dockerService['expose-port']}`)
