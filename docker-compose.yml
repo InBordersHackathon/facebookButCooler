@@ -1,15 +1,10 @@
 version: "3.9"  # optional since v1.27.0
 services:
   ui:
-    build: example-a
+    build: example-app
     ports:
       - "3000:3000"
-    volumes:
-      - .:/code
-      - logvolume01:/var/log
-    depends_on:
-      - redis
-  redis:
-    image: redis
-volumes:
-  logvolume01: {}
+  backend:
+    build: example-backend
+    ports:
+      - "3001:3001"
