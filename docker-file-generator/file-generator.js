@@ -31,7 +31,7 @@ const generateDockerCompose = (dockerServices) => {
 
   const pushContent = (instruction) => {
     for(let i = 0; i < tabCount; i++){
-      content += `\t`;
+      content += `  `;
     }
     content += `${instruction}\n`;
   }
