@@ -8,3 +8,7 @@ services:
     build: example-backend
     ports:
       - "3001:3001"
+  backend2:
+    build: testRepository2/backend2/Dockerfile
+    ports:
+      - "3001:3001"

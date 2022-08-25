@@ -19,6 +19,11 @@ function App() {
   console.log({data});
   text = data;
  });
+
+ getData('http://localhost:3002/app2').then(data => {
+  console.log({data});
+  text = data;
+ });
   
   return (
     <div className="App">

@@ -8,7 +8,7 @@
         "app-path": "facebookButCooler/example-app",
         "expose-port": "3000",
         "entry-point": ["npm", "run", "start"]
-    }, 
+    },
     {
         "app-name": "example-backend",
         "node-version": "node:12-alpine",
@@ -17,6 +17,16 @@
         "url": "https://github.com/InBordersHackathon/facebookButCooler.git",
         "app-path": "facebookButCooler/example-backend",
         "expose-port": "3001",
+        "entry-point": ["npm", "run", "start"]
+    },
+    {
+        "app-name": "backend2",
+        "node-version": "node:12-alpine",
+        "setup": ["apk add git"],
+        "branch": "main",
+        "url": "https://github.com/InBordersHackathon/testRepository2",
+        "app-path": "testRepository2/backend2",
+        "expose-port": "3002",
         "entry-point": ["npm", "run", "start"]
     }
 ]
